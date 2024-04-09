@@ -298,14 +298,9 @@
 
 					// func finalizeRef(v ref)
 					"syscall/js.finalizeRef": (v_ref) => {
-						const id = mem().getUint32(unboxValue(v_ref), true);
-						this._goRefCounts[id]--;
-						if (this._goRefCounts[id] === 0) {
-							const v = this._values[id];
-							this._values[id] = null;
-							this._ids.delete(v);
-							this._idPool.push(id);
-						}
+						// Note: TinyGo does not support finalizers so this should never be
+						// called.
+						console.error('syscall/js.finalizeRef not implemented');
 					},
 
 					// func stringVal(value string) ref
